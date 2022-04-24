@@ -8,17 +8,13 @@ public class UserInputDate {
 	private Date dateWeatherData;
 	private Scanner tempFileScanner;
 	private Scanner precipFileScanner;
-	private boolean validInputDate;
-	private Scanner inputDateScanner;
-	private boolean inputInRange;
+	private InputValidation dateValidation;
 	
 	public UserInputDate() throws FileNotFoundException {
 		this.dateWeatherData = new Date();
 		this.tempFileScanner = new Scanner(new File("data/H_Temp.csv"));
 		this.precipFileScanner = new Scanner(new File("data/H_Precip.csv"));
-		this.validInputDate = false;
-		this.inputDateScanner = new Scanner(System.in);
-		this.inputInRange = false;
+		this.dateValidation = new InputValidation();
 	}
 	
 	public Date getDateWeatherData() {
@@ -28,62 +24,11 @@ public class UserInputDate {
 	public void gatherUserInput() throws FileNotFoundException {
 		tempFileScanner.useDelimiter(",");
 		precipFileScanner.useDelimiter(",");
-		promptUserForDate();
+		dateValidation.promptUserForDate();
+		this.dateWeatherData = dateValidation.getDateWeatherData();
 		searchForDateInTempCSV();
 	}
 
-	public void promptUserForDate() throws FileNotFoundException {
-		System.out.println("Please enter a date between 1940/05/16 and 2026/12/31 with the format YYYYMMDD: ");
-		while (validInputDate == false) { 
-			String chosenDate = inputDateScanner.nextLine();
-			checkInputValidFormat(chosenDate);
-		}
-		inputDateScanner.close();
-	}
-
-	public void checkInputValidFormat(String chosenDate) throws FileNotFoundException {
-		boolean inputIsNumeric = isNumeric(chosenDate);
-		if (chosenDate.length() == 8 && inputIsNumeric) {
-			checkInputInValidDateRange(chosenDate);
-		} else {
-			System.out.println("Please enter a valid date");
-		}
-	}
-	
-	public boolean isNumeric (String strToCheck) {
-		boolean numeric = false;
-		try {  
-		    Integer.parseInt(strToCheck);  
-		    numeric = true;
-		  } catch(NumberFormatException e){  
-		    numeric = false;
-		  }  
-		return numeric;
-	}
-	
-	public boolean checkInputInValidDateRange(String chosenDate) throws FileNotFoundException {
-		inputInRange = checkInputInCSV(chosenDate);
-		if (inputInRange) {
-			validInputDate = true;
-			dateWeatherData.setDateString(chosenDate);
-			
-		}
-		else {
-			System.out.println("Please enter a valid date");
-		}
-		return inputInRange;
-	}
-
-	public boolean checkInputInCSV(String chosenDate) throws FileNotFoundException {
-		Scanner tempFileScannerForValidation = new Scanner(new File("data/H_Temp.csv"));
-		while (tempFileScannerForValidation.hasNextLine()) {
-			String line = tempFileScannerForValidation.nextLine();
-			if (line.contains(chosenDate)) {
-				this.inputInRange = true;
-			}
-		}
-		return inputInRange;
-	}
 
 	public void searchForDateInTempCSV() {
 		while (tempFileScanner.hasNextLine()) {
