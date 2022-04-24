@@ -9,17 +9,13 @@ public class UserInputDateRange {
 //	private Date dateWeatherData;
 //	private Scanner tempFileScanner;
 //	private Scanner precipFileScanner;
-//	private boolean validInputDate;
-//	private Scanner inputDateScanner;
-//	private boolean inputInRange;
+//	private InputValidation dateValidation;
 //	
 //	public UserInputDateRange() throws FileNotFoundException {
 //		this.dateWeatherData = new Date();
 //		this.tempFileScanner = new Scanner(new File("data/H_Temp.csv"));
 //		this.precipFileScanner = new Scanner(new File("data/H_Precip.csv"));
-//		this.validInputDate = false;
-//		this.inputDateScanner = new Scanner(System.in);
-//		this.inputInRange = false;
+//		this.dateValidation = new InputValidation();
 //	}
 //	
 //	public Date getDateWeatherData() {
@@ -29,62 +25,11 @@ public class UserInputDateRange {
 //	public void gatherUserInput() throws FileNotFoundException {
 //		tempFileScanner.useDelimiter(",");
 //		precipFileScanner.useDelimiter(",");
-//		promptUserForDate();
+//		dateValidation.promptUserForDate();
+//		this.dateWeatherData = dateValidation.getDateWeatherData();
 //		searchForDateInTempCSV();
 //	}
 //
-//	public void promptUserForDate() throws FileNotFoundException {
-//		System.out.println("Please enter a date between 1940/05/16 and 2026/12/31 with the format YYYYMMDD: ");
-//		while (validInputDate == false) { 
-//			String chosenDate = inputDateScanner.nextLine();
-//			checkInputValidFormat(chosenDate);
-//		}
-//		inputDateScanner.close();
-//	}
-//
-//	public void checkInputValidFormat(String chosenDate) throws FileNotFoundException {
-//		boolean inputIsNumeric = isNumeric(chosenDate);
-//		if (chosenDate.length() == 8 && inputIsNumeric) {
-//			checkInputInValidDateRange(chosenDate);
-//		} else {
-//			System.out.println("Please enter a valid date");
-//		}
-//	}
-//	
-//	public boolean isNumeric (String strToCheck) {
-//		boolean numeric = false;
-//		try {  
-//		    Integer.parseInt(strToCheck);  
-//		    numeric = true;
-//		  } catch(NumberFormatException e){  
-//		    numeric = false;
-//		  }  
-//		return numeric;
-//	}
-//	
-//	public boolean checkInputInValidDateRange(String chosenDate) throws FileNotFoundException {
-//		inputInRange = setupCSVSearch(chosenDate);
-//		if (inputInRange) {
-//			validInputDate = true;
-//			dateWeatherData.setDateString(chosenDate);
-//			
-//		}
-//		else {
-//			System.out.println("Please enter a valid date");
-//		}
-//		return inputInRange;
-//	}
-//
-//	public boolean setupCSVSearch(String chosenDate) throws FileNotFoundException {
-//		Scanner tempFileScannerForValidation = new Scanner(new File("data/H_Temp.csv"));
-//		while (tempFileScannerForValidation.hasNextLine()) {
-//			String line = tempFileScannerForValidation.nextLine();
-//			if (line.contains(chosenDate)) {
-//				this.inputInRange = true;
-//			}
-//		}
-//		return inputInRange;
-//	}
 //
 //	public void searchForDateInTempCSV() {
 //		while (tempFileScanner.hasNextLine()) {
@@ -130,18 +75,23 @@ public class UserInputDateRange {
 //		printDateWeatherData();
 //	}
 //
-//	public void printDateWeatherData() {
-//		System.out.println("Date: " + dateWeatherData.getDateString());
-//		System.out.println("Predicted Temperature Low: " + dateWeatherData.getPredLow());
-//		System.out.println("Predicted Temperature High: " + dateWeatherData.getPredHigh());
-//		System.out.println("Real Temperature Low: " + dateWeatherData.getRealLow());
-//		System.out.println("Real Temperature High: " + dateWeatherData.getRealHigh());
-//		System.out.println("Predicted Year-to-Date Precipitation: " + dateWeatherData.getPredPrecip());
-//		System.out.println("Real Year-to-Date Precipitation: " + dateWeatherData.getRealPrecip());
+//	public String checkEmptyData(String data) {
+//		if (data.equals(" ") || data.equals("")) {
+//			return "N/A";
+//		}
+//		else {
+//			return data;
+//		}
 //	}
-//	public static void main(String[] args) throws FileNotFoundException {
-//		UserInputDateRange uidr = new UserInputDateRange();
-//		uidr.gatherUserInput();
+//
+//	public void printDateWeatherData() {
+//		System.out.println("Date: " + checkEmptyData(dateWeatherData.getDateString()));
+//		System.out.println("Predicted Temperature Low: " + checkEmptyData(dateWeatherData.getPredLow()));
+//		System.out.println("Predicted Temperature High: " + checkEmptyData(dateWeatherData.getPredHigh()));
+//		System.out.println("Real Temperature Low: " + checkEmptyData(dateWeatherData.getRealLow()));
+//		System.out.println("Real Temperature High: " + checkEmptyData(dateWeatherData.getRealHigh()));
+//		System.out.println("Predicted Year-to-Date Precipitation: " + checkEmptyData(dateWeatherData.getPredPrecip()));
+//		System.out.println("Real Year-to-Date Precipitation: " + checkEmptyData(dateWeatherData.getRealPrecip()));
 //	}
 
 }
