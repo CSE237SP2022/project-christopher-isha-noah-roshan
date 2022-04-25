@@ -20,12 +20,13 @@ public class WeatherDataTests {
 		userInput.gatherUserInput();
 		Date day = userInput.getDateWeatherData();
 		assertTrue("20200404".equals(day.getDateString()));
-		assertTrue("69.0".equals(day.getPredLow()));
-		assertTrue("83.0".equals(day.getPredHigh()));
-		assertTrue("69.5".equals(day.getRealLow()));
-		assertTrue("82.4".equals(day.getRealHigh()));
-		assertTrue("5.78".equals(day.getPredPrecip()));
-		assertTrue("6.31".equals(day.getRealPrecip()));
+		assertTrue("69.5".equals(day.getPredLow()));
+		assertTrue("82.4".equals(day.getPredHigh()));
+		assertTrue("69.0".equals(day.getRealLow()));
+		assertTrue("83.0".equals(day.getRealHigh()));
+		assertTrue("6.31".equals(day.getPredPrecip()));
+		assertTrue("5.78".equals(day.getRealPrecip()));
+		
 	}
 
 }
