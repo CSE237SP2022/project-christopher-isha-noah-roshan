@@ -65,10 +65,8 @@ public class DateRange {
 	//Currently doesn't function properly because precipitation is YTD measurement
 	//Plan on fixing for iteration 3
 	public void computeTotalPrecips() {
-		for (Date day:dates) {
-			this.totalPredPrecip += Double.parseDouble(day.getPredPrecip()) - this.totalPredPrecip;
-			this.totalRealPrecip += Double.parseDouble(day.getRealPrecip()) - this.totalRealPrecip;
-		}
+		this.totalPredPrecip = Double.parseDouble(dates.get(6).getPredPrecip()) - Double.parseDouble(dates.get(0).getPredPrecip());
+		this.totalRealPrecip = Double.parseDouble(dates.get(6).getRealPrecip()) - Double.parseDouble(dates.get(0).getRealPrecip());
 	}
 	
 	
