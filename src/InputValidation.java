@@ -20,8 +20,30 @@ public class InputValidation {
 	public Date getDateWeatherData() {
 		return this.dateWeatherData;
 	}
+	public void promptUserForDateOrRange() throws FileNotFoundException {
+		System.out.println("Would you like to enter a date (1) or date range (2)?");
+		int userInput = inputDateScanner.nextInt();
+		if (userInput == 1) {
+			promptUserForDate();
+		} else if (userInput == 2) {
+			promptUserForDateRange();
+		} else {
+			System.out.println("Invalid input. Please try again.");
+			promptUserForDateOrRange();
+		}
+	}
+
 	public void promptUserForDate() throws FileNotFoundException {
 		System.out.println("Please enter a date between 1940/05/16 and 2026/12/31 with the format YYYYMMDD: ");
+		while (validInputDate == false) { 
+			String chosenDate = inputDateScanner.nextLine();
+			checkInputValidFormat(chosenDate);
+		}
+		inputDateScanner.close();
+	}
+
+	public void promptUserForDateRange() throws FileNotFoundException {
+		System.out.println("Please enter a beginning date for a 7 day range between 1940/05/16 and 2026/12/31 with the format YYYYMMDD: ");
 		while (validInputDate == false) { 
 			String chosenDate = inputDateScanner.nextLine();
 			checkInputValidFormat(chosenDate);
