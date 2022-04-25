@@ -28,8 +28,41 @@ public class UserInputDate {
 	public void gatherUserInput() throws FileNotFoundException {
 		tempFileScanner.useDelimiter(",");
 		precipFileScanner.useDelimiter(",");
+		System.out.println("Would you like to choose a specific date (1) or a date range (2)?");
+		int userInput = inputDateScanner.nextInt();
+		boolean validInput = false;
+		//@Noah We added the date range option with this while and these if statements
+		while (!validInput)
+		{
+			if (userInput == 1)
+			{
+				promptUserForDate();
+				validInput = true;
+			}
+			else if (userInput == 2)
+			{
+				promptUserForDateRange();
+				validInput = true;
+			}
+			else
+			{
+				System.out.println("Please enter a valid input");
+				userInput = inputDateScanner.nextInt();
+			}
+		}
 		promptUserForDate();
 		searchForDateInTempCSV();
+	}
+
+	//We added this method to prompt the user for a date range. It's identical to your promptUserForDate() method except it has 
+	//a slightly different input prompt. We kept the checkInputValidFormat() method the same.
+	public void promptUserForDateRange() throws FileNotFoundException {
+		System.out.println("Please enter a date range between 1940/05/16 and 2026/12/31 with the format YYYYMMDD: ");
+		while (validInputDate == false) { 
+			String chosenDate = inputDateScanner.nextLine();
+			checkInputValidFormat(chosenDate);
+		}
+		inputDateScanner.close();
 	}
 
 	public void promptUserForDate() throws FileNotFoundException {
