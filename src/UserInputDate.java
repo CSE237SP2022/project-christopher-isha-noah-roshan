@@ -48,8 +48,8 @@ public class UserInputDate {
 
 	public void setTempData(String line) {
 		String[] contents = line.split(",");
-		dateWeatherData.setPredictedTemperatures(contents[1], contents[2]);
-		dateWeatherData.setRealTemperatures(contents[3], contents[4]);
+		dateWeatherData.setRealTemperatures(contents[1], contents[2]);
+		dateWeatherData.setPredictedTemperatures(contents[3], contents[4]);
 		searchForDateInPrecipCSV();
 	}
 	
@@ -69,8 +69,8 @@ public class UserInputDate {
 
 	public void setPrecipData(String line) {
 		String[] contents = line.split(",");
-		dateWeatherData.setPredictedPrecipitation(contents[1]);
-		dateWeatherData.setRealPrecipitation(contents[2]);
+		dateWeatherData.setRealPrecipitation(contents[1]);
+		dateWeatherData.setPredictedPrecipitation(contents[2]);
 		printDateWeatherData();
 	}
 
