@@ -67,5 +67,21 @@ public class UserInputDateTests {
 		notEmptyData = inputDate.checkEmptyData(notEmptyData);
 		assertTrue("17.3".equals(notEmptyData));
 	}
+	//This test covers all UserInputDate methods that are not tested individually
+	//To run this test you must input "20200404" into the console
+	@Test
+	void testUserInputDate20200404() throws FileNotFoundException {
+		inputDate = new UserInputDate();
+		inputDate.gatherUserInput();
+		Date day = inputDate.getDateWeatherData();
+		assertTrue("20200404".equals(day.getDateString()));
+		assertTrue("69.5".equals(day.getPredLow()));
+		assertTrue("82.4".equals(day.getPredHigh()));
+		assertTrue("69.0".equals(day.getRealLow()));
+		assertTrue("83.0".equals(day.getRealHigh()));
+		assertTrue("6.31".equals(day.getPredPrecip()));
+		assertTrue("5.78".equals(day.getRealPrecip()));
+		
+	}
 	
 }
