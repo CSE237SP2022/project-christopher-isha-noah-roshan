@@ -33,8 +33,8 @@ public class UserInputDateRange {
 		this.dateValidation = new InputValidation();
 	}
 
-	public Date getDateWeatherData() {
-		return day1;
+	public DateRange getDatesInRange() {
+		return datesInRange;
 	}
 
 	public void addDatesToDateRange() {
@@ -58,7 +58,6 @@ public class UserInputDateRange {
 
 	public void searchForDateInTempCSV() {
 		while (tempFileScanner.hasNextLine()) {
-
 			String line = tempFileScanner.nextLine();
 			if (line.contains(day1.getDateString())) {
 				findTempDataForRange(line);
