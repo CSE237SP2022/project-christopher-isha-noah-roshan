@@ -4,33 +4,46 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class WeatherData {
-	public static void main(String[] args) throws FileNotFoundException {
-		promptUserForDateOrRange();
+	private UserInputDate inputDate;
+	private UserInputDateRange inputRange;
+	private Scanner inputChoiceScanner;
+	
+	public WeatherData() throws FileNotFoundException {
+		this.inputDate = new UserInputDate();
+		this.inputRange = new UserInputDateRange();
+		this.inputChoiceScanner = new Scanner(System.in);
+	}
+	public UserInputDate getInputDate() {
+		return this.inputDate;
+	}
+	public UserInputDateRange getInputRange() {
+		return this.inputRange;
 	}
 
-	public static void promptUserForDateOrRange() throws FileNotFoundException {
+	public void promptUserForDateOrRange() throws FileNotFoundException {
 		System.out.println("Would you like data for a single date (1) or 7-day range (2)?");
-		Scanner inputChoiceScanner = new Scanner(System.in);
 		String userChoice = inputChoiceScanner.nextLine();
 		if (userChoice.equals("1")) {
-			setupDate(inputChoiceScanner);
+			setupDate();
 		} else if (userChoice.equals("2")) {
-			setupDateRange(inputChoiceScanner);
+			setupDateRange();
 		} else {
 			System.out.println("Invalid input. Please try again.");
 			promptUserForDateOrRange();
 		}
 	}
-
-	private static void setupDate(Scanner inputChoiceScanner) throws FileNotFoundException {
-		UserInputDate inputDate = new UserInputDate();
+	public void setupDate() throws FileNotFoundException {
 		inputDate.gatherUserInput();
 		inputChoiceScanner.close();
 	}
 	
-	private static void setupDateRange(Scanner inputChoiceScanner) throws FileNotFoundException {
-		UserInputDateRange inputRange = new UserInputDateRange();
+	public void setupDateRange() throws FileNotFoundException {
 		inputRange.gatherUserInput();
 		inputChoiceScanner.close();
+	}
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		WeatherData run = new WeatherData();
+		run.promptUserForDateOrRange();
 	}
 }
